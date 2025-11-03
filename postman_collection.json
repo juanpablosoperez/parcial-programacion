@@ -1,0 +1,208 @@
+{
+  "info": {
+    "name": "Parcial API - CRUD",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Sorteos",
+      "item": [
+        {
+          "name": "Crear sorteo",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sorteos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sorteos"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fecha\": \"2025-11-03T00:00:00.000+00:00\",\n  \"hora\": \"1970-01-01T20:00:00.000+00:00\",\n  \"estado\": \"PROGRAMADO\",\n  \"lugar\": \"Salón Central\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar sorteos",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/sorteos", "host": ["{{baseUrl}}"], "path": ["api", "sorteos"] }
+          }
+        },
+        {
+          "name": "Obtener sorteo por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/sorteos/1", "host": ["{{baseUrl}}"], "path": ["api", "sorteos", "1"] }
+          }
+        },
+        {
+          "name": "Actualizar sorteo",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/sorteos/1", "host": ["{{baseUrl}}"], "path": ["api", "sorteos", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fecha\": \"2025-11-04T00:00:00.000+00:00\",\n  \"hora\": \"1970-01-01T21:00:00.000+00:00\",\n  \"estado\": \"EN_CURSO\",\n  \"lugar\": \"Auditorio 1\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar sorteo",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/api/sorteos/1", "host": ["{{baseUrl}}"], "path": ["api", "sorteos", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Premios",
+      "item": [
+        {
+          "name": "Crear premio",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/premios", "host": ["{{baseUrl}}"], "path": ["api", "premios"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"Electrodoméstico\",\n  \"modelo\": \"X100\",\n  \"marca\": \"Acme\",\n  \"sorteo\": { \"id\": 1 }\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar premios",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/premios", "host": ["{{baseUrl}}"], "path": ["api", "premios"] } }
+        },
+        {
+          "name": "Obtener premio por ID",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/premios/1", "host": ["{{baseUrl}}"], "path": ["api", "premios", "1"] } }
+        },
+        {
+          "name": "Actualizar premio",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/premios/1", "host": ["{{baseUrl}}"], "path": ["api", "premios", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"Vehículo\",\n  \"modelo\": \"Sedan\",\n  \"marca\": \"Acme Motors\",\n  \"sorteo\": { \"id\": 1 }\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar premio",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/premios/1", "host": ["{{baseUrl}}"], "path": ["api", "premios", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Cartones",
+      "item": [
+        {
+          "name": "Crear cartón",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/cartones", "host": ["{{baseUrl}}"], "path": ["api", "cartones"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nro_serie\": \"ABC123\",\n  \"nombre_apellido\": \"Juan Pérez\",\n  \"estado\": \"ACTIVO\",\n  \"numeros_b\": \"1,2,3,4,5\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar cartones",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/cartones", "host": ["{{baseUrl}}"], "path": ["api", "cartones"] } }
+        },
+        {
+          "name": "Obtener cartón por nro_serie",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/cartones/ABC123", "host": ["{{baseUrl}}"], "path": ["api", "cartones", "ABC123"] } }
+        },
+        {
+          "name": "Obtener cartón por ID",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/cartones/id/1", "host": ["{{baseUrl}}"], "path": ["api", "cartones", "id", "1"] } }
+        },
+        {
+          "name": "Actualizar cartón (completo)",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/cartones/ABC123", "host": ["{{baseUrl}}"], "path": ["api", "cartones", "ABC123"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nro_serie\": \"ABC123\",\n  \"nombre_apellido\": \"Juan Pérez\",\n  \"estado\": \"SUSPENDIDO\",\n  \"numeros_b\": \"6,7,8,9,10\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar estado de cartón",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/cartones/ABC123/estado", "host": ["{{baseUrl}}"], "path": ["api", "cartones", "ABC123", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"estado\": \"ACTIVO\"\n}" }
+          }
+        },
+        {
+          "name": "Eliminar cartón",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/cartones/ABC123", "host": ["{{baseUrl}}"], "path": ["api", "cartones", "ABC123"] } }
+        }
+      ]
+    },
+    {
+      "name": "Ganadores",
+      "item": [
+        {
+          "name": "Crear ganador",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/ganadores", "host": ["{{baseUrl}}"], "path": ["api", "ganadores"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"12345678\",\n  \"nombre_apellido\": \"Ana Gómez\",\n  \"nro_serie_carton\": \"ABC123\",\n  \"telefono\": \"123-456-789\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar ganadores",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/ganadores", "host": ["{{baseUrl}}"], "path": ["api", "ganadores"] } }
+        },
+        {
+          "name": "Obtener ganador por ID",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/ganadores/1", "host": ["{{baseUrl}}"], "path": ["api", "ganadores", "1"] } }
+        },
+        {
+          "name": "Actualizar ganador",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/ganadores/1", "host": ["{{baseUrl}}"], "path": ["api", "ganadores", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"98765432\",\n  \"nombre_apellido\": \"Ana Gómez\",\n  \"nro_serie_carton\": \"ABC123\",\n  \"telefono\": \"555-555-555\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar ganador",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/ganadores/1", "host": ["{{baseUrl}}"], "path": ["api", "ganadores", "1"] } }
+        }
+      ]
+    }
+  ]
+}
+
+
