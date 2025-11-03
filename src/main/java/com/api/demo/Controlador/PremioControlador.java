@@ -55,6 +55,3 @@ public class PremioControlador {
 		return eliminado ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 }
-
-
-
