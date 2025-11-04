@@ -39,13 +39,15 @@
       renderSorteos([it]);
     } catch (e) { notify('error', 'No encontrado'); }
   });
-  $('#btnSorteoReset').addEventListener('click', () => formSorteo.reset());
+  $('#btnSorteoReset').addEventListener('click', () => { formSorteo.reset(); $('#sorteoId').value=''; $('#sorteoIdDisplay').value=''; });
   $('#btnSorteoDelete').addEventListener('click', async () => {
     const id = API.N($('#sorteoId').value);
     if (!id) return notify('error', 'Seleccione un sorteo a eliminar');
     if (!confirm('¿Eliminar sorteo?')) return;
     await API.deleteSorteo(id).catch(() => {});
     formSorteo.reset();
+    $('#sorteoId').value='';
+    $('#sorteoIdDisplay').value='';
     notify('success', 'Eliminado');
     loadSorteos();
   });
@@ -67,8 +69,31 @@
       if (id) await API.updateSorteo(id, payload); else await API.createSorteo(payload);
       notify('success', 'Guardado');
       formSorteo.reset();
+      $('#sorteoId').value='';
+      $('#sorteoIdDisplay').value='';
       loadSorteos();
     } catch (e) { notify('error', 'Error al guardar'); }
+  });
+
+  $('#btnSorteoSaveNew').addEventListener('click', async () => {
+    const fecha = $('#sorteoFecha').value;
+    const hora = $('#sorteoHora').value;
+    const estado = API.S($('#sorteoEstado').value);
+    const lugar = API.S($('#sorteoLugar').value);
+    if (!fecha || !hora || !estado || !lugar) return notify('error', 'Complete todos los campos');
+    const payload = {
+      fecha: new Date(fecha).toISOString(),
+      hora: new Date(`1970-01-01T${hora}:00.000Z`).toISOString(),
+      estado, lugar
+    };
+    try {
+      await API.createSorteo(payload);
+      notify('success', 'Creado como nuevo');
+      formSorteo.reset();
+      $('#sorteoId').value='';
+      $('#sorteoIdDisplay').value='';
+      loadSorteos();
+    } catch { notify('error', 'Error al crear'); }
   });
 
   function renderSorteos(items) {
@@ -90,10 +115,20 @@
       const id = API.N(b.dataset.id);
       const it = await API.getSorteo(id);
       $('#sorteoId').value = it.id;
+      $('#sorteoIdDisplay').value = it.id ?? '';
       $('#sorteoFecha').value = toDateTimeLocal(it.fecha);
-      const h = new Date(it.hora || it.fecha);
       const pad = (n) => n.toString().padStart(2,'0');
-      $('#sorteoHora').value = `${pad(h.getHours())}:${pad(h.getMinutes())}`;
+      const src = it.hora || it.fecha;
+      if (src) {
+        const h = new Date(src);
+        if (!isNaN(h.getTime())) {
+          $('#sorteoHora').value = `${pad(h.getHours())}:${pad(h.getMinutes())}`;
+        } else {
+          $('#sorteoHora').value = '';
+        }
+      } else {
+        $('#sorteoHora').value = '';
+      }
       $('#sorteoEstado').value = it.estado ?? '';
       $('#sorteoLugar').value = it.lugar ?? '';
       show('sorteos');
@@ -211,15 +246,20 @@
     if (!id) return notify('error', 'ID inválido');
     try { const it = await API.getCartonById(id); renderCartones(it ? [it] : []); } catch { notify('error', 'No encontrado'); }
   });
-  $('#btnCartonReset').addEventListener('click', () => formCarton.reset());
+  $('#btnCartonReset').addEventListener('click', () => { formCarton.reset(); $('#cartonId').value=''; });
   $('#btnCartonDelete').addEventListener('click', async () => {
     const serie = API.S($('#cartonSerie').value);
     if (!serie) return notify('error', 'Indique nro_serie a eliminar');
     if (!confirm('¿Eliminar cartón?')) return;
-    await API.deleteCarton(serie).catch(() => {});
-    formCarton.reset();
-    notify('success', 'Eliminado');
-    loadCartones();
+    try {
+      await API.deleteCarton(serie);
+      formCarton.reset();
+      $('#cartonId').value='';
+      notify('success', 'Eliminado');
+      loadCartones();
+    } catch (e) {
+      notify('error', 'No se pudo eliminar');
+    }
   });
   $('#formCartonEstado').addEventListener('submit', async (ev) => {
     ev.preventDefault();
@@ -246,8 +286,25 @@
       if (id) await API.updateCarton(nro_serie, payload); else await API.createCarton(payload);
       notify('success', 'Guardado');
       formCarton.reset();
+      $('#cartonId').value='';
       loadCartones();
     } catch { notify('error', 'Error al guardar'); }
+  });
+
+  $('#btnCartonSaveNew').addEventListener('click', async () => {
+    const nro_serie = API.S($('#cartonSerie').value);
+    const nombre_apellido = API.S($('#cartonNombre').value);
+    const estado = API.S($('#cartonEstado').value);
+    const numeros_b = API.S($('#cartonNumeros').value);
+    if (!nro_serie || !nombre_apellido || !estado || !numeros_b) return notify('error', 'Complete todos los campos');
+    const payload = { nro_serie, nombre_apellido, estado, numeros_b };
+    try {
+      await API.createCarton(payload);
+      notify('success', 'Creado como nuevo');
+      formCarton.reset();
+      $('#cartonId').value='';
+      loadCartones();
+    } catch { notify('error', 'Error al crear'); }
   });
   function renderCartones(items) {
     const head = `<tr><th>ID</th><th>Serie</th><th>Nombre</th><th>Estado</th><th>Números B</th><th>Acciones</th></tr>`;
@@ -277,9 +334,13 @@
     $$('#tblCartones .carton-del').forEach(b => b.addEventListener('click', async () => {
       const serie = API.S(b.dataset.serie);
       if (!confirm('¿Eliminar cartón?')) return;
-      await API.deleteCarton(serie).catch(() => {});
-      notify('success', 'Eliminado');
-      loadCartones();
+      try {
+        await API.deleteCarton(serie);
+        notify('success', 'Eliminado');
+        loadCartones();
+      } catch (e) {
+        notify('error', 'No se pudo eliminar');
+      }
     }));
   }
   async function loadCartones() { try { renderCartones(await API.getCartones()); } catch { tblCartones.innerHTML = '<tr><td>Error</td></tr>'; } }
@@ -293,13 +354,15 @@
     if (!id) return notify('error', 'ID inválido');
     try { const it = await API.getGanador(id); renderGanadores([it]); } catch { notify('error', 'No encontrado'); }
   });
-  $('#btnGanadorReset').addEventListener('click', () => formGanador.reset());
+  $('#btnGanadorReset').addEventListener('click', () => { formGanador.reset(); $('#ganadorId').value=''; $('#ganadorIdDisplay').value=''; });
   $('#btnGanadorDelete').addEventListener('click', async () => {
     const id = API.N($('#ganadorId').value);
     if (!id) return notify('error', 'Seleccione un ganador');
     if (!confirm('¿Eliminar ganador?')) return;
     await API.deleteGanador(id).catch(() => {});
     formGanador.reset();
+    $('#ganadorId').value='';
+    $('#ganadorIdDisplay').value='';
     notify('success', 'Eliminado');
     loadGanadores();
   });
@@ -316,8 +379,27 @@
       if (id) await API.updateGanador(id, payload); else await API.createGanador(payload);
       notify('success', 'Guardado');
       formGanador.reset();
+      $('#ganadorId').value='';
+      $('#ganadorIdDisplay').value='';
       loadGanadores();
     } catch { notify('error', 'Error al guardar'); }
+  });
+
+  $('#btnGanadorSaveNew').addEventListener('click', async () => {
+    const dni = API.S($('#ganadorDni').value);
+    const nombre_apellido = API.S($('#ganadorNombre').value);
+    const nro_serie_carton = API.S($('#ganadorSerie').value);
+    const telefono = API.S($('#ganadorTelefono').value);
+    if (!dni || !nombre_apellido || !nro_serie_carton || !telefono) return notify('error', 'Complete todos los campos');
+    const payload = { dni, nombre_apellido, nro_serie_carton, telefono };
+    try {
+      await API.createGanador(payload);
+      notify('success', 'Creado como nuevo');
+      formGanador.reset();
+      $('#ganadorId').value='';
+      $('#ganadorIdDisplay').value='';
+      loadGanadores();
+    } catch { notify('error', 'Error al crear'); }
   });
   function renderGanadores(items) {
     const head = `<tr><th>ID</th><th>DNI</th><th>Nombre</th><th>Serie Cartón</th><th>Teléfono</th><th>Acciones</th></tr>`;
@@ -337,6 +419,7 @@
     $$('#tblGanadores .ganador-edit').forEach(b => b.addEventListener('click', async () => {
       const it = await API.getGanador(API.N(b.dataset.id));
       $('#ganadorId').value = it.id;
+      $('#ganadorIdDisplay').value = it.id ?? '';
       $('#ganadorDni').value = it.dni ?? '';
       $('#ganadorNombre').value = it.nombre_apellido ?? '';
       $('#ganadorSerie').value = it.nro_serie_carton ?? '';

@@ -36,6 +36,8 @@
                     <h3>Crear / Editar</h3>
                     <form id="formSorteo" class="form">
                         <input type="hidden" id="sorteoId">
+                        <label>ID (Sorteo)</label>
+                        <input id="sorteoIdDisplay" type="text" disabled>
                         <label>Fecha (ISO)</label>
                         <input id="sorteoFecha" type="datetime-local" required>
                         <label>Hora (HH:mm)</label>
@@ -46,6 +48,7 @@
                         <input id="sorteoLugar" type="text" required maxlength="100">
                         <div class="actions">
                             <button type="submit">Guardar</button>
+                            <button type="button" id="btnSorteoSaveNew">Guardar como nuevo</button>
                             <button type="button" id="btnSorteoReset">Limpiar</button>
                             <button type="button" id="btnSorteoDelete" class="danger">Eliminar</button>
                         </div>
@@ -119,6 +122,7 @@
                         <input id="cartonNumeros" type="text" required maxlength="50" placeholder="1,2,3,4,5">
                         <div class="actions">
                             <button type="submit">Guardar</button>
+                            <button type="button" id="btnCartonSaveNew">Guardar como nuevo</button>
                             <button type="button" id="btnCartonReset">Limpiar</button>
                             <button type="button" id="btnCartonDelete" class="danger">Eliminar</button>
                         </div>
@@ -155,6 +159,8 @@
                     <h3>Crear / Editar</h3>
                     <form id="formGanador" class="form">
                         <input type="hidden" id="ganadorId">
+                        <label>ID (Ganador)</label>
+                        <input id="ganadorIdDisplay" type="text" disabled>
                         <label>DNI</label>
                         <input id="ganadorDni" type="text" required maxlength="15">
                         <label>Nombre y Apellido</label>
@@ -165,6 +171,7 @@
                         <input id="ganadorTelefono" type="text" required maxlength="25">
                         <div class="actions">
                             <button type="submit">Guardar</button>
+                            <button type="button" id="btnGanadorSaveNew">Guardar como nuevo</button>
                             <button type="button" id="btnGanadorReset">Limpiar</button>
                             <button type="button" id="btnGanadorDelete" class="danger">Eliminar</button>
                         </div>

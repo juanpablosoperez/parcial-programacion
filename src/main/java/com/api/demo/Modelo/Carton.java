@@ -18,7 +18,7 @@ public class Carton {
 	@Column(name = "id_carton")
 	private long id;
 	
-	@Column(name = "nro_serie", length = 20)
+	@Column(name = "nro_serie", length = 20, unique = true)
 	private String nroserie;
 	
 	@Column(name = "nombre_apellido", length = 100)
