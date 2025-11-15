@@ -14,24 +14,30 @@ import jakarta.persistence.TemporalType;
 @Entity
 
 @Table(name = "sorteo")
+// Esta clase representa un Sorteo. Guarda cuándo y dónde se hace, y su estado.
 public class Sorteo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_sorteo")
+	// Identificador del sorteo
 	private long id;
 	
 	@Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
+    // Fecha del sorteo (con día/mes/año)
     private Date fecha;
 	
 	@Column(name = "hora")
     @Temporal(TemporalType.TIME)
+    // Hora del sorteo
     private  Date hora;
 	
 	@Column(name = "estado", length = 15)
+	// Estado actual (ej: programado, realizado, cancelado)
 	private String estado;
 	
 	@Column(name = "lugar", length = 100)
+	// Lugar donde se hace el sorteo
 	private String lugar;
 
 	public long getId() {

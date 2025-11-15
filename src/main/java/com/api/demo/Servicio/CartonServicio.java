@@ -9,8 +9,10 @@ import com.api.demo.Modelo.Carton;
 import com.api.demo.Repositorio.CartonRepositorio;
 
 @Service
+// Servicio que maneja la lógica de negocio para Cartones
 public class CartonServicio {
 
+	// Repositorio para acceder a la base de datos de cartones
 	private final CartonRepositorio cartonRepositorio;
 
 	public CartonServicio(CartonRepositorio cartonRepositorio) {

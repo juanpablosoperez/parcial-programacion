@@ -8,8 +8,10 @@ import com.api.demo.Modelo.Premio;
 import com.api.demo.Repositorio.PremioRepositorio;
 
 @Service
+// Servicio con la lógica para manejar Premios
 public class PremioServicio {
 
+	// Repositorio para leer/escribir premios en la base de datos
 	private final PremioRepositorio premioRepositorio;
 
 	public PremioServicio(PremioRepositorio premioRepositorio) {

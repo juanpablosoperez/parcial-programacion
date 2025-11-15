@@ -13,24 +13,30 @@ import jakarta.persistence.*;
 @Entity
 
 @Table(name = "premio")
+// Esta clase representa un Premio que se entrega en un sorteo.
 public class Premio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_premio")
+	// Identificador del premio
 	private long id;
 	
 	
 	@ManyToOne
     @JoinColumn(name = "id_sorteo", nullable = false)
+    // A qué sorteo pertenece este premio
     private Sorteo sorteo;
 	
 	@Column(name = "tipo", length = 50)
+	// Tipo de premio (ej: electrodoméstico, viaje)
 	private String tipo;
 	
 	@Column(name = "modelo", length = 100)
+	// Modelo del premio (si aplica)
 	private String modelo;
 	
 	@Column(name = "marca", length = 50)
+	// Marca del premio (si aplica)
 	private String marca;
 
 	public long getId() {

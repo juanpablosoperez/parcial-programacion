@@ -11,22 +11,28 @@ import jakarta.persistence.Table;
 @Entity
 
 @Table(name = "ganador")
+// Esta clase guarda los datos del Ganador de un sorteo.
 public class Ganador {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_ganador")
+	// Identificador del ganador
 	private long id;
 	
 	@Column(name = "dni", length = 15)
+	// Documento del ganador
 	private String dni;
 	
 	@Column(name = "nombre_apellido", length = 100)
+	// Nombre y apellido del ganador
 	private String nombre_apellido;
 	
 	@Column(name = "nro_serie_carton", length = 20)
+	// Número de serie del cartón ganador
 	private String nro_serie_carton;
 	
 	@Column(name = "telefono", length = 25)
+	// Teléfono de contacto del ganador
 	private String telefono;
 
 	public long getId() {

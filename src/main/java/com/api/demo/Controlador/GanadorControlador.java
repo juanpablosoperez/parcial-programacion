@@ -18,6 +18,7 @@ import com.api.demo.Servicio.GanadorServicio;
 
 @RestController
 @RequestMapping("/api/ganadores")
+// Controlador REST para ganadores. Maneja operaciones CRUD
 public class GanadorControlador {
 
 	private final GanadorServicio ganadorServicio;
@@ -27,29 +28,34 @@ public class GanadorControlador {
 	}
 
 	@PostMapping
+	// Crea un ganador nuevo
 	public ResponseEntity<Ganador> crear(@RequestBody Ganador body) {
 		Ganador creado = ganadorServicio.crear(body);
 		return new ResponseEntity<>(creado, HttpStatus.CREATED);
 	}
 
 	@GetMapping
+	// Lista todos los ganadores
 	public ResponseEntity<List<Ganador>> listar() {
 		return new ResponseEntity<>(ganadorServicio.listar(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
+	// Busca un ganador por id
 	public ResponseEntity<Ganador> obtener(@PathVariable("id") Long id) {
 		Ganador g = ganadorServicio.obtenerPorId(id);
 		return g != null ? new ResponseEntity<>(g, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/{id}")
+	// Actualiza datos de un ganador
 	public ResponseEntity<Ganador> actualizar(@PathVariable("id") Long id, @RequestBody Ganador body) {
 		Ganador actualizado = ganadorServicio.actualizar(id, body);
 		return actualizado != null ? new ResponseEntity<>(actualizado, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	@DeleteMapping("/{id}")
+	// Elimina un ganador por id
 	public ResponseEntity<Void> eliminar(@PathVariable("id") Long id) {
 		boolean eliminado = ganadorServicio.eliminar(id);
 		return eliminado ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);

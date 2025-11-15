@@ -8,8 +8,10 @@ import com.api.demo.Modelo.Sorteo;
 import com.api.demo.Repositorio.SorteoRepositorio;
 
 @Service
+// Servicio con la lógica para gestionar Sorteos
 public class SorteoServicio {
 
+	// Repositorio para acceder a los sorteos en la base
 	private final SorteoRepositorio sorteoRepositorio;
 
 	public SorteoServicio(SorteoRepositorio sorteoRepositorio) {

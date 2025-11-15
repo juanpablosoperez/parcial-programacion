@@ -8,15 +8,17 @@ import com.api.demo.Modelo.Ganador;
 import com.api.demo.Repositorio.GanadorRepositorio;
 
 @Service
+// Servicio con la lógica de Ganadores (crear, listar, etc.)
 public class GanadorServicio {
 
+	// Repositorio para acceder a los ganadores en la base
 	private final GanadorRepositorio ganadorRepositorio;
 
 	public GanadorServicio(GanadorRepositorio ganadorRepositorio) {
 		this.ganadorRepositorio = ganadorRepositorio;
 	}
 
-	// insertarr
+	// insertar
 	public Ganador crear(Ganador ganador) {
 		return ganadorRepositorio.save(ganador);
 	}

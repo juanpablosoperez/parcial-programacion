@@ -23,16 +23,16 @@
         <section id="sorteos" class="view active">
             <h2>Sorteos</h2>
             <div class="grid two">
-                <div>
+                <div class="card">
                     <h3>Listado</h3>
                     <div class="toolbar">
-                        <button id="btnSorteosList">Refrescar</button>
+                        <button id="btnSorteosList" class="secondary">Refrescar</button>
                         <input id="sorteoGetId" type="number" placeholder="ID" min="1">
-                        <button id="btnSorteoGet">Obtener</button>
+                        <button id="btnSorteoGet" class="secondary">Obtener</button>
                     </div>
                     <table id="tblSorteos" class="table"></table>
                 </div>
-                <div>
+                <div class="card">
                     <h3>Crear / Editar</h3>
                     <form id="formSorteo" class="form">
                         <input type="hidden" id="sorteoId">
@@ -47,9 +47,9 @@
                         <label>Lugar</label>
                         <input id="sorteoLugar" type="text" required maxlength="100">
                         <div class="actions">
-                            <button type="submit">Guardar</button>
-                            <button type="button" id="btnSorteoSaveNew">Guardar como nuevo</button>
-                            <button type="button" id="btnSorteoReset">Limpiar</button>
+                            <button type="submit" class="primary">Guardar</button>
+                            <button type="button" id="btnSorteoSaveNew" class="secondary">Guardar como nuevo</button>
+                            <button type="button" id="btnSorteoReset" class="secondary">Limpiar</button>
                             <button type="button" id="btnSorteoDelete" class="danger">Eliminar</button>
                         </div>
                     </form>
@@ -60,16 +60,16 @@
         <section id="premios" class="view">
             <h2>Premios</h2>
             <div class="grid two">
-                <div>
+                <div class="card">
                     <h3>Listado</h3>
                     <div class="toolbar">
-                        <button id="btnPremiosList">Refrescar</button>
+                        <button id="btnPremiosList" class="secondary">Refrescar</button>
                         <input id="premioGetId" type="number" placeholder="ID" min="1">
-                        <button id="btnPremioGet">Obtener</button>
+                        <button id="btnPremioGet" class="secondary">Obtener</button>
                     </div>
                     <table id="tblPremios" class="table"></table>
                 </div>
-                <div>
+                <div class="card">
                     <h3>Crear / Editar</h3>
                     <form id="formPremio" class="form">
                         <input type="hidden" id="premioId">
@@ -84,9 +84,9 @@
                         <label>ID Sorteo</label>
                         <input id="premioSorteoId" type="number" required min="1">
                         <div class="actions">
-                            <button type="submit">Guardar</button>
-                            <button type="button" id="btnPremioSaveNew">Guardar como nuevo</button>
-                            <button type="button" id="btnPremioReset">Limpiar</button>
+                            <button type="submit" class="primary">Guardar</button>
+                            <button type="button" id="btnPremioSaveNew" class="secondary">Guardar como nuevo</button>
+                            <button type="button" id="btnPremioReset" class="secondary">Limpiar</button>
                             <button type="button" id="btnPremioDelete" class="danger">Eliminar</button>
                         </div>
                     </form>
@@ -97,18 +97,18 @@
         <section id="cartones" class="view">
             <h2>Cartones</h2>
             <div class="grid two">
-                <div>
+                <div class="card">
                     <h3>Listado</h3>
                     <div class="toolbar">
-                        <button id="btnCartonesList">Refrescar</button>
+                        <button id="btnCartonesList" class="secondary">Refrescar</button>
                         <input id="cartonGetSerie" type="text" placeholder="nro_serie">
-                        <button id="btnCartonGetSerie">Obtener por serie</button>
+                        <button id="btnCartonGetSerie" class="secondary">Obtener por serie</button>
                         <input id="cartonGetId" type="number" placeholder="ID" min="1">
-                        <button id="btnCartonGetId">Obtener por ID</button>
+                        <button id="btnCartonGetId" class="secondary">Obtener por ID</button>
                     </div>
                     <table id="tblCartones" class="table"></table>
                 </div>
-                <div>
+                <div class="card">
                     <h3>Crear / Editar</h3>
                     <form id="formCarton" class="form">
                         <input type="hidden" id="cartonId">
@@ -121,9 +121,9 @@
                         <label>Números (B)</label>
                         <input id="cartonNumeros" type="text" required maxlength="50" placeholder="1,2,3,4,5">
                         <div class="actions">
-                            <button type="submit">Guardar</button>
-                            <button type="button" id="btnCartonSaveNew">Guardar como nuevo</button>
-                            <button type="button" id="btnCartonReset">Limpiar</button>
+                            <button type="submit" class="primary">Guardar</button>
+                            <button type="button" id="btnCartonSaveNew" class="secondary">Guardar como nuevo</button>
+                            <button type="button" id="btnCartonReset" class="secondary">Limpiar</button>
                             <button type="button" id="btnCartonDelete" class="danger">Eliminar</button>
                         </div>
                     </form>
@@ -135,8 +135,8 @@
                         <label>Nuevo estado</label>
                         <input id="cartonEstadoNuevo" type="text" required>
                         <div class="actions">
-                            <button type="submit">Actualizar estado</button>
-                            <button type="button" id="btnCartonEstadoReset">Limpiar</button>
+                            <button type="submit" class="primary">Actualizar estado</button>
+                            <button type="button" id="btnCartonEstadoReset" class="secondary">Limpiar</button>
                         </div>
                     </form>
                 </div>
@@ -146,23 +146,23 @@
         <section id="ganadores" class="view">
             <h2>Ganadores</h2>
             <div class="grid two">
-                <div>
+                <div class="card">
                     <h3>Listado</h3>
                     <div class="toolbar">
-                        <button id="btnGanadoresList">Refrescar</button>
+                        <button id="btnGanadoresList" class="secondary">Refrescar</button>
                         <input id="ganadorGetId" type="number" placeholder="ID" min="1">
-                        <button id="btnGanadorGet">Obtener</button>
+                        <button id="btnGanadorGet" class="secondary">Obtener</button>
                     </div>
                     <table id="tblGanadores" class="table"></table>
                 </div>
-                <div>
+                <div class="card">
                     <h3>Crear / Editar</h3>
                     <form id="formGanador" class="form">
                         <input type="hidden" id="ganadorId">
                         <label>ID (Ganador)</label>
                         <input id="ganadorIdDisplay" type="text" disabled>
                         <label>DNI</label>
-                        <input id="ganadorDni" type="text" required maxlength="15">
+                        <input id="ganadorDni" type="number" required maxlength="15">
                         <label>Nombre y Apellido</label>
                         <input id="ganadorNombre" type="text" required maxlength="100">
                         <label>Nro. Serie Cartón</label>
@@ -170,9 +170,9 @@
                         <label>Teléfono</label>
                         <input id="ganadorTelefono" type="text" required maxlength="25">
                         <div class="actions">
-                            <button type="submit">Guardar</button>
-                            <button type="button" id="btnGanadorSaveNew">Guardar como nuevo</button>
-                            <button type="button" id="btnGanadorReset">Limpiar</button>
+                            <button type="submit" class="primary">Guardar</button>
+                            <button type="button" id="btnGanadorSaveNew" class="secondary">Guardar como nuevo</button>
+                            <button type="button" id="btnGanadorReset" class="secondary">Limpiar</button>
                             <button type="button" id="btnGanadorDelete" class="danger">Eliminar</button>
                         </div>
                     </form>
@@ -189,7 +189,11 @@
 
     <script src="./js/config.js"></script>
     <script src="./js/api.js"></script>
-    <script src="./js/app.js"></script>
+    <script src="./js/base.js"></script>
+    <script src="./js/sorteos.js"></script>
+    <script src="./js/premios.js"></script>
+    <script src="./js/cartones.js"></script>
+    <script src="./js/ganadores.js"></script>
     </body>
     </html>
 

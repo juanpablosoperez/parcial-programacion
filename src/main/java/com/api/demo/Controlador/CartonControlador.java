@@ -19,6 +19,7 @@ import com.api.demo.Servicio.CartonServicio;
 
 @RestController
 @RequestMapping("/api/cartones")
+// Controlador REST para cartones. Maneja altas, bajas, cambios y consultas
 public class CartonControlador {
 
 	private final CartonServicio cartonServicio;
@@ -28,29 +29,34 @@ public class CartonControlador {
 	}
 
 	@PostMapping
+	// Crea un cartón nuevo
 	public ResponseEntity<Carton> crear(@RequestBody Carton body) {
 		Carton creado = cartonServicio.crear(body);
 		return new ResponseEntity<>(creado, HttpStatus.CREATED);
 	}
 
 	@GetMapping
+	// Lista todos los cartones
 	public ResponseEntity<List<Carton>> listar() {
 		return new ResponseEntity<>(cartonServicio.listar(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{nro_serie}")
+	// Busca un cartón por su número de serie
 	public ResponseEntity<Carton> obtenerPorNroSerie(@PathVariable("nro_serie") String nroSerie) {
 		Carton c = cartonServicio.obtenerPorNroSerie(nroSerie);
 		return c != null ? new ResponseEntity<>(c, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	@GetMapping("/id/{id}")
+	// Busca un cartón por id
 	public ResponseEntity<Carton> obtenerPorId(@PathVariable("id") Long id) {
 		Carton c = cartonServicio.obtenerPorId(id);
 		return c != null ? new ResponseEntity<>(c, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/{nro_serie}")
+	// Actualiza datos de un cartón
 	public ResponseEntity<Carton> actualizar(
 			@PathVariable("nro_serie") String nroSerie,
 			@RequestBody Carton body) {
@@ -60,6 +66,7 @@ public class CartonControlador {
 	}
 
 	@PutMapping("/{nro_serie}/estado")
+	// Cambia solo el estado del cartón
 	public ResponseEntity<Carton> actualizarEstado(
 			@PathVariable("nro_serie") String nroSerie,
 			@RequestBody Map<String, String> body) {
@@ -70,6 +77,7 @@ public class CartonControlador {
 	}
 
 	@DeleteMapping("/{nro_serie}")
+	// Elimina un cartón por número de serie
 	public ResponseEntity<Void> eliminar(@PathVariable("nro_serie") String nroSerie) {
 		boolean eliminado = cartonServicio.eliminar(nroSerie);
 		return eliminado ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
